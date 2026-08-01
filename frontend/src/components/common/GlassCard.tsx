@@ -8,7 +8,11 @@ type GlassCardProps = HTMLAttributes<HTMLDivElement> & {
 export function GlassCard({ className, glow = false, ...props }: GlassCardProps) {
 	return (
 		<div
-			className={cn('glass-card rounded-[28px] p-6', glow && 'animate-glow', className)}
+			className={cn(
+				`hover-lift relative overflow-hidden rounded-[28px] border border-white/10 bg-white/5 p-6 shadow-[0_20px_80px_rgba(2,6,23,0.35)] backdrop-blur-2xl`,
+				glow && 'animate-glow',
+				className,
+			)}
 			{...props}
 		/>
 	);

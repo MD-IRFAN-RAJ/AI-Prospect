@@ -1,7 +1,16 @@
 import { GlassCard } from './GlassCard';
 
 function SkeletonBlock({ className = '' }: { className?: string }) {
-	return <div className={`animate-shimmer rounded-2xl bg-gradient-to-r from-white/5 via-white/10 to-white/5 bg-[length:200%_100%] ${className}`} />;
+	return (
+		<div
+			className={`animate-shimmer rounded-2xl ${className}`}
+			style={{
+				backgroundImage:
+					'linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 100%)',
+				backgroundSize: '200% 100%',
+			}}
+		/>
+	);
 }
 
 export function ContactCardSkeleton() {
