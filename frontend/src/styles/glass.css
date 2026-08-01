@@ -1,0 +1,73 @@
+.glass,
+.glass-card,
+.glass-button,
+.glass-panel,
+.glass-input {
+	border: 1px solid hsl(var(--glass-border));
+	background: hsl(var(--glass));
+	-webkit-backdrop-filter: blur(20px) saturate(160%);
+	backdrop-filter: blur(20px) saturate(160%);
+	box-shadow: 0 18px 50px hsl(var(--shadow));
+}
+
+.glass {
+	border-radius: var(--radius);
+}
+
+.glass-card,
+.glass-panel {
+	border-radius: calc(var(--radius) + 4px);
+}
+
+.glass-button {
+	border-radius: 999px;
+}
+
+.glass-input {
+	border-radius: 18px;
+}
+
+.glass-card {
+	position: relative;
+	overflow: hidden;
+}
+
+.glass-card::before,
+.glass-panel::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, hsl(var(--primary) / 0.12), transparent 42%, hsl(var(--secondary) / 0.1));
+	pointer-events: none;
+}
+
+.glass-card > *,
+.glass-panel > * {
+	position: relative;
+	z-index: 1;
+}
+
+.glass-button {
+	transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.glass-button:hover:not(:disabled) {
+	transform: translateY(-1px);
+	box-shadow: 0 24px 60px hsl(var(--shadow));
+}
+
+.glass-input {
+	width: 100%;
+	padding: 0.9rem 1rem;
+	outline: none;
+	color: hsl(var(--text));
+}
+
+.glass-input::placeholder {
+	color: hsl(var(--muted));
+}
+
+.glass-input:focus {
+	border-color: hsl(var(--primary) / 0.5);
+	box-shadow: 0 0 0 4px hsl(var(--primary) / 0.14);
+}

@@ -1,0 +1,30 @@
+:root {
+	--background: 222 47% 7%;
+	--card: 224 36% 11%;
+	--surface: 224 28% 14%;
+	--primary: 191 95% 55%;
+	--secondary: 255 92% 74%;
+	--glass: 226 34% 14% / 0.72;
+	--glass-border: 210 40% 96% / 0.14;
+	--shadow: 224 45% 3% / 0.32;
+	--radius: 24px;
+	--text: 210 40% 96%;
+	--muted: 215 20% 65%;
+	--accent: 186 85% 58%;
+	--ring: 191 95% 55%;
+}
+
+:root[data-theme='light'] {
+	--background: 224 67% 98%;
+	--card: 0 0% 100%;
+	--surface: 220 33% 97%;
+	--primary: 193 94% 42%;
+	--secondary: 256 85% 64%;
+	--glass: 0 0% 100% / 0.72;
+	--glass-border: 224 32% 89% / 0.85;
+	--shadow: 224 40% 82% / 0.25;
+	--text: 224 40% 14%;
+	--muted: 224 18% 42%;
+	--accent: 192 90% 44%;
+	--ring: 193 94% 42%;
+}
