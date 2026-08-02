@@ -58,9 +58,9 @@ export function SearchProvider({ children }: { children: ReactNode }) {
 			setResults(data);
 			setStage('Done');
 			await delay(240);
-		} catch {
+		} catch (err: any) {
 			setResults(null);
-			setError('We could not load mock search results.');
+			setError(err.message || 'We could not load search results.');
 			setStage(null);
 		} finally {
 			setLoading(false);

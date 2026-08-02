@@ -114,8 +114,13 @@ export async function searchBrand(query: string): Promise<SearchResult> {
 			news: payload.news || [],
 			sources: payload.sources || [],
 		} as SearchResult;
-	} catch (err) {
-		console.warn('Search API failed, falling back to mock', err);
+	} catch (err: any) {
+		console.warn('Search API failed, falling back to mock in development', err);
+		if (import.meta.env.PROD) {
+			throw new Error(
+				`API Connection Error: ${err.message || 'Network error'}. Please verify that your Vercel 'VITE_API_URL' env variable is set to your Render backend URL, and that your Render backend is running and active.`
+			);
+		}
 		// Fallback to previous mock implementation for resilience
 		await new Promise((resolve) => setTimeout(resolve, 800));
 		const slug = toSlug(query);
