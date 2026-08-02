@@ -1,44 +1,33 @@
-import { Link, NavLink } from 'react-router-dom';
-import { routes } from '../../config/routes';
-import { cn } from '../../lib';
+import { Settings, Sparkles } from 'lucide-react';
 
-const navItems = [
-	{ label: 'Home', to: routes.home },
-	{ label: 'History', to: routes.history },
-	{ label: 'Settings', to: routes.settings },
-];
-
-export function Navbar() {
+const Navbar = () => {
 	return (
-		<header className="sticky top-0 z-40 border-b border-white/10 bg-[hsl(var(--background))/0.72] backdrop-blur-xl">
-			<div className="container flex items-center justify-between gap-4 py-4">
-				<Link to={routes.home} className="group flex items-center gap-3">
-					<span className="grid h-11 w-11 place-items-center rounded-2xl bg-gradient-to-br from-cyan-400 via-sky-400 to-violet-500 text-lg font-semibold text-slate-950 shadow-lg shadow-cyan-500/20">
-						AI
-					</span>
-					<span className="flex flex-col">
-						<span className="font-semibold tracking-tight text-white">Buyhatke Prospect</span>
-						<span className="text-sm text-slate-300">AI-assisted outbound intelligence</span>
-					</span>
-				</Link>
+		<header className="sticky top-0 z-30 border-b border-white/10 bg-[hsl(var(--background))/0.7] backdrop-blur-2xl">
+			<div className="page-container flex h-16 items-center justify-between py-0">
+				<div className="flex items-center gap-3">
+					<div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/8 text-cyan-200 shadow-lg shadow-cyan-500/10 backdrop-blur-xl bg-linear-to-br from-cyan-400/10 to-violet-400/10">
+						<Sparkles className="h-5 w-5" />
+					</div>
+					<div className="leading-tight">
+						<p className="text-sm font-semibold text-white">Buyhatke AI Prospect</p>
+						<p className="text-xs text-white/50">Find marketing decision makers faster</p>
+					</div>
+				</div>
 
-				<nav className="hidden items-center gap-2 md:flex">
-					{navItems.map((item) => (
-						<NavLink
-							key={item.to}
-							to={item.to}
-							className={({ isActive }) =>
-								cn(
-									'rounded-full px-4 py-2 text-sm transition-colors',
-									isActive ? 'bg-white/12 text-white' : 'text-slate-300 hover:bg-white/8 hover:text-white',
-								)
-							}
-						>
-							{item.label}
-						</NavLink>
-					))}
+				<nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
+					<a className="transition hover:text-white" href="#features">Features</a>
+					<a className="transition hover:text-white" href="#history">History</a>
+					<button type="button" className="flex items-center gap-2 transition hover:text-white">
+						<Settings className="h-4 w-4" />
+						Settings
+					</button>
+						<div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/8 text-sm font-semibold text-white">
+						AP
+					</div>
 				</nav>
 			</div>
 		</header>
 	);
-}
+};
+
+export default Navbar;

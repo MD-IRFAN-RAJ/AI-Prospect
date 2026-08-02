@@ -1,22 +1,21 @@
-import { type ReactNode } from 'react';
-import { Outlet } from 'react-router-dom';
-import { Footer } from '../components/layout/Footer.tsx';
-import { FloatingAI } from '../components/layout/FloatingAI.tsx';
-import { Navbar } from '../components/layout/Navbar.tsx';
+import type { ReactNode } from 'react';
+import Navbar from '@/components/layout/Navbar.tsx';
+import Footer from '@/components/layout/Footer.tsx';
+import FloatingAI from '@/components/layout/FloatingAI.tsx';
 
 type AppLayoutProps = {
-	children?: ReactNode;
+	children: ReactNode;
 };
 
-export function AppLayout({ children }: AppLayoutProps) {
+const AppLayout = ({ children }: AppLayoutProps) => {
 	return (
-		<div className="relative min-h-screen overflow-x-hidden">
+		<div className="relative min-h-screen overflow-hidden">
 			<Navbar />
-			<main className="page-container relative z-10">
-				{children ?? <Outlet />}
-			</main>
-			<FloatingAI />
+			<main>{children}</main>
 			<Footer />
+			<FloatingAI />
 		</div>
 	);
-}
+};
+
+export default AppLayout;
