@@ -18,6 +18,8 @@ import { useSearch } from '@/features/search/hooks/useSearch';
 import { useState } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
 const cardMotion = {
 	hidden: { opacity: 0, y: 24 },
 	show: { opacity: 1, y: 0 },
@@ -263,7 +265,7 @@ function EmailCard() {
 		if (!results.company.name) return;
 		setRegenerating(true);
 		try {
-			const res = await axios.post('http://localhost:4000/api/email', { company: results.company.name });
+			const res = await axios.post(`${API_URL}/api/email`, { company: results.company.name });
 			if (res.data?.success && res.data?.data?.email) {
 				setResults((prev) =>
 					prev
@@ -337,7 +339,7 @@ function LinkedInCard() {
 		if (!results.company.name) return;
 		setRegenerating(true);
 		try {
-			const res = await axios.post('http://localhost:4000/api/linkedin', { company: results.company.name });
+			const res = await axios.post(`${API_URL}/api/linkedin`, { company: results.company.name });
 			if (res.data?.success && res.data?.data?.linkedin) {
 				setResults((prev) =>
 					prev

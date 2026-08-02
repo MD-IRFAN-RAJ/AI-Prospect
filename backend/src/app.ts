@@ -9,9 +9,11 @@ import { notFoundHandler } from './middleware/not-found.js';
 
 const app = express();
 
+const corsOrigins = env.CORS_ORIGIN === '*' ? '*' : env.CORS_ORIGIN.split(',').map((o) => o.trim());
+
 app.use(
   cors({
-    origin: env.CORS_ORIGIN,
+    origin: corsOrigins,
   }),
 );
 app.use(express.json());

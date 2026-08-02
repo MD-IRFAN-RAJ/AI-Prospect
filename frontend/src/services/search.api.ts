@@ -65,11 +65,13 @@ function toSlug(value: string) {
 
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
 export async function searchBrand(query: string): Promise<SearchResult> {
 	const brand = toTitleCase(query);
 
 	try {
-		const res = await axios.post('http://localhost:4000/api/search', { company: brand }, { headers: { 'Content-Type': 'application/json' } });
+		const res = await axios.post(`${API_URL}/api/search`, { company: brand }, { headers: { 'Content-Type': 'application/json' } });
 
 		const payload = res.data?.data;
 
