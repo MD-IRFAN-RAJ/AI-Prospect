@@ -12,6 +12,10 @@ async function run() {
   const files = [
     'supabase/migrations/001_create_companies.sql',
     'supabase/migrations/002_create_search_history.sql',
+    'supabase/migrations/003_create_contacts.sql',
+    'supabase/migrations/004_update_companies_outreach.sql',
+    'supabase/migrations/005_add_company_details.sql',
+    'supabase/migrations/006_create_visitors.sql',
   ];
 
   const client = new Client({ connectionString: conn });

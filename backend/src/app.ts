@@ -4,6 +4,7 @@ import { env } from './config/env.js';
 import aiRouter from './routes/ai.routes.js';
 import historyRouter from './routes/history.routes.js';
 import searchRouter from './routes/search.routes.js';
+import statsRouter from './routes/stats.routes.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { notFoundHandler } from './middleware/not-found.js';
 
@@ -24,6 +25,7 @@ app.get('/health', (_request, response) => {
 
 app.use('/api/search', searchRouter);
 app.use('/api/history', historyRouter);
+app.use('/api/stats', statsRouter);
 app.use('/api', aiRouter);
 
 app.use(notFoundHandler);

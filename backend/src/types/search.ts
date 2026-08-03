@@ -9,6 +9,18 @@ export type CompanyRecord = {
   website: string;
   summary: string;
   created_at?: string;
+  ai_headline?: string;
+  ai_best_angle?: string;
+  ai_confidence?: number;
+  email_subject?: string;
+  email_body?: string;
+  linkedin_message?: string;
+  market_status?: string;
+  scale?: string;
+  annual_revenue?: string;
+  hq_region?: string;
+  suggested_budget?: string;
+  growth_trajectory?: string;
 };
 
 export type ContactRecord = {

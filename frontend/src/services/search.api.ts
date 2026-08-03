@@ -28,6 +28,12 @@ export type SearchResult = {
 		website: string;
 		summary: string;
 		recentLaunch: string;
+		marketStatus?: string;
+		scale?: string;
+		annualRevenue?: string;
+		hqRegion?: string;
+		suggestedBudget?: string;
+		growthTrajectory?: string;
 	};
 	contacts: SearchContact[];
 	aiSummary: {
@@ -83,6 +89,12 @@ export async function searchBrand(query: string): Promise<SearchResult> {
 			website: payload.company.website || '',
 			summary: payload.company.summary || '',
 			recentLaunch: payload.news?.[0]?.title || '',
+			marketStatus: payload.company.market_status || payload.company.marketStatus || 'High-Growth',
+			scale: payload.company.scale || '10,000+ Employees',
+			annualRevenue: payload.company.annual_revenue || payload.company.annualRevenue || '$10B+',
+			hqRegion: payload.company.hq_region || payload.company.hqRegion || 'Global',
+			suggestedBudget: payload.company.suggested_budget || payload.company.suggestedBudget || '$10M+ Allocation Signal',
+			growthTrajectory: payload.company.growth_trajectory || payload.company.growthTrajectory || 'Bullish',
 		};
 
 		const contacts = (payload.contacts || []).map((c: any) => ({
@@ -130,10 +142,16 @@ export async function searchBrand(query: string): Promise<SearchResult> {
 			query: brand,
 			company: {
 				name: brand,
-				industry: 'Electronics',
+				industry: brand === 'Microsoft' ? 'Technology' : brand === 'Apple Inc.' ? 'Consumer Electronics' : 'Consumer Goods',
 				website: `https://www.${slug}.com`,
 				summary: `${brand} has high-intent decision makers across brand and performance marketing.`,
 				recentLaunch: `${brand} recently launched a new flagship campaign with premium positioning.`,
+				marketStatus: brand === 'Microsoft' || brand === 'Apple Inc.' ? 'Dominant' : 'Challenger',
+				scale: brand === 'Microsoft' ? '220,000+ Employees' : brand === 'Apple Inc.' ? '160,000+ Employees' : '15,000+ Employees',
+				annualRevenue: brand === 'Microsoft' ? '$245B+ (2024)' : brand === 'Apple Inc.' ? '$383B+ (2023)' : '$5B+',
+				hqRegion: brand === 'Microsoft' || brand === 'Apple Inc.' ? 'Americas / Global' : 'APAC / Global',
+				suggestedBudget: brand === 'Microsoft' || brand === 'Apple Inc.' ? '$50M+ Allocation Signal' : '$10M+ Allocation Signal',
+				growthTrajectory: 'Bullish',
 			},
 			contacts: [
 				{ name: 'Ankit Sharma', title: 'Marketing Director', company: brand, match: 'Best Match', score: 98, email: `ankit.sharma@${slug}.com`, linkedin: 'linkedin.com/in/ankit-sharma' },

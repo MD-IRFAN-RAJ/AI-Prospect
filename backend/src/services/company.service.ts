@@ -56,17 +56,25 @@ async function searchSources(company: string): Promise<SourceRecord[]> {
 
   let queries = [
     `${company} official website`,
-    `${company} news`,
-    `${company} LinkedIn leadership executive team`,
-    `${company} marketing head CEO founder LinkedIn`,
+    `${company} news recent updates`,
+    `site:linkedin.com/in/ "${company}" current (CMO OR "Marketing Director" OR "VP Marketing" OR "Head of Marketing")`,
+    `site:linkedin.com/in/ "${company}" current (CEO OR Founder OR President)`,
   ];
 
   try {
     const queryPrompt = buildSearchQueriesPrompt(company);
     const generatedQueries = await generateJSON<string[]>(queryPrompt);
     if (Array.isArray(generatedQueries) && generatedQueries.length > 0) {
-      queries = generatedQueries.slice(0, 4);
-      console.log('Using generated search queries:', queries);
+      queries = generatedQueries.slice(0, 4).map((q, idx) => {
+        if (idx >= 2 || /linkedin|cmo|ceo|marketing|contact|director|founder|president|head/i.test(q)) {
+          if (!q.includes('site:')) {
+            const cleaned = q.replace(/linkedin|on linkedin/gi, '').trim();
+            return `site:linkedin.com/in/ "${company}" current ${cleaned}`;
+          }
+        }
+        return q;
+      });
+      console.log('Using generated search queries targeting LinkedIn:', queries);
     }
   } catch (err) {
     console.warn('Failed to generate search queries, using fallback:', err);
@@ -107,6 +115,12 @@ type CompanyAndContactsPayload = {
     industry?: string;
     website?: string;
     recentLaunch?: string;
+    marketStatus?: string;
+    scale?: string;
+    annualRevenue?: string;
+    hqRegion?: string;
+    suggestedBudget?: string;
+    growthTrajectory?: string;
     notes?: string;
   };
   contacts?: Array<{
@@ -142,6 +156,12 @@ async function analyzeCompanyAndExtractContacts(company: string, sources: Source
     industry: result.companyProfile?.industry?.trim() || 'Unknown',
     website: result.companyProfile?.website?.trim() || `https://www.${slugify(company)}.com`,
     recentLaunch: result.companyProfile?.recentLaunch?.trim() || '',
+    marketStatus: result.companyProfile?.marketStatus?.trim() || 'High-Growth',
+    scale: result.companyProfile?.scale?.trim() || '10,000+ Employees',
+    annualRevenue: result.companyProfile?.annualRevenue?.trim() || '$10B+',
+    hqRegion: result.companyProfile?.hqRegion?.trim() || 'Global',
+    suggestedBudget: result.companyProfile?.suggestedBudget?.trim() || '$10M+ Allocation Signal',
+    growthTrajectory: result.companyProfile?.growthTrajectory?.trim() || 'Bullish',
     notes: result.companyProfile?.notes?.trim() || '',
   };
 

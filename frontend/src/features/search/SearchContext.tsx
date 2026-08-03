@@ -21,6 +21,8 @@ type SearchContextValue = {
 	hasSearched: boolean;
 	search: (value?: string) => Promise<void>;
 	setResults: Dispatch<SetStateAction<SearchResult | null>>;
+	aiAssistantOpen: boolean;
+	setAiAssistantOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const SearchContext = createContext<SearchContextValue | undefined>(undefined);
@@ -32,6 +34,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
 	const [stage, setStage] = useState<SearchStage | null>(null);
 	const [results, setResults] = useState<SearchResult | null>(null);
 	const [hasSearched, setHasSearched] = useState(false);
+	const [aiAssistantOpen, setAiAssistantOpen] = useState(false);
 
 	const delay = (duration: number) => new Promise((resolve) => window.setTimeout(resolve, duration));
 
@@ -68,7 +71,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
 	};
 
 	return (
-		<SearchContext.Provider value={{ query, setQuery, loading, error, stage, results, hasSearched, search, setResults }}>
+		<SearchContext.Provider value={{ query, setQuery, loading, error, stage, results, hasSearched, search, setResults, aiAssistantOpen, setAiAssistantOpen }}>
 			{children}
 		</SearchContext.Provider>
 	);
