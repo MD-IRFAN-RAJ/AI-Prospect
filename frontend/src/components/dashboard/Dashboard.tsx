@@ -364,6 +364,21 @@ function replaceContactName(text: string, originalContact: any, selectedContact:
 	const selectedName = selectedContact ? selectedContact.name : '[Name]';
 	const selectedFirstName = selectedContact ? selectedContact.name.split(' ')[0] : '[Name]';
 
+	// Parse first line to replace any generic/random greeting name
+	const lines = result.split('\n');
+	if (lines.length > 0) {
+		const firstLine = lines[0].trim();
+		const greetingRegex = /^(Hi|Hello|Dear|Hey|To)\s+([^,:\n!]+)(.*)$/i;
+		const match = firstLine.match(greetingRegex);
+		if (match) {
+			const greetingWord = match[1];
+			const restOfLine = match[3];
+			lines[0] = `${greetingWord} ${selectedFirstName}${restOfLine}`;
+			result = lines.join('\n');
+		}
+	}
+
+	// Also replace any original extracted contact name occurrences
 	if (originalContact) {
 		const origFullName = originalContact.name;
 		const origFirstName = originalContact.name.split(' ')[0];
@@ -383,6 +398,7 @@ function replaceContactName(text: string, originalContact: any, selectedContact:
 		}
 	}
 
+	// Dynamic replacements of bracket placeholders
 	result = result.replace(/\[name\]/gi, selectedFirstName);
 	result = result.replace(/\[contact\s*name\]/gi, selectedFirstName);
 	result = result.replace(/\[contact\]/gi, selectedFirstName);
